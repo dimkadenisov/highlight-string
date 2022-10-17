@@ -1,4 +1,4 @@
-import { getTextChunks } from '../src/getTextChunks';
+import { getTextChunks } from '../src/functions/getTextChunks';
 
 const cases = [
   {

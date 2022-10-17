@@ -1,1 +1,1 @@
-export { getTextChunks as default } from './getTextChunks';
+export { getTextChunks as default } from './functions/getTextChunks';
