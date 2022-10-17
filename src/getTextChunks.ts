@@ -5,7 +5,7 @@ type Entry = {
 
 type MainPropsType = {
   text: string;
-  substring: string;
+  substrings: string[];
   caseSensitive?: boolean;
   sanitize?: (string: string) => string;
 };
@@ -18,13 +18,63 @@ function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function getEntries(text: string, substrings: string[], regExpFlags: string) {
+  const arrayOfMatchesArrays = substrings.map((substring) => {
+    return [...text.matchAll(new RegExp(escapeRegExp(substring), regExpFlags))];
+  });
+
+  return arrayOfMatchesArrays.reduce((acc, matchesArray, index) => {
+    const entries = matchesArray.reduce((acc, item) => {
+      acc.push({
+        startIndex: item.index || 0,
+        endIndex: (item.index || 0) + substrings[index].length,
+      });
+
+      return acc;
+    }, [] as Entry[]);
+
+    return [...acc, ...entries];
+  }, [] as Entry[]);
+}
+
+function concatEntries(entries: Entry[]) {
+  const sortedEntries = entries.sort((a, b) => a.startIndex - b.startIndex);
+  const result = [];
+
+  let { startIndex: currentStartIndex, endIndex: currentEndIndex } = entries[0];
+
+  for (let i = 1; i <= sortedEntries.length; i++) {
+    const nextEntry = sortedEntries[i];
+
+    if (!nextEntry) {
+      result.push({ startIndex: currentStartIndex, endIndex: currentEndIndex });
+
+      return result;
+    }
+
+    // chunks not overlap
+    if (currentEndIndex < nextEntry.startIndex) {
+      result.push({ startIndex: currentStartIndex, endIndex: currentEndIndex });
+      currentStartIndex = nextEntry.startIndex;
+      currentEndIndex = nextEntry.endIndex;
+      // chunks overlap
+    } else {
+      currentEndIndex = Math.max(currentEndIndex, nextEntry.endIndex);
+    }
+  }
+
+  return result;
+}
+
 export function getTextChunks({
   text,
-  substring,
+  substrings,
   caseSensitive = false,
   sanitize,
 }: MainPropsType) {
-  if (!text || !substring) {
+  const truthySubstrings = substrings.filter(Boolean);
+
+  if (!text || truthySubstrings.length === 0) {
     return [
       {
         text,
@@ -34,38 +84,30 @@ export function getTextChunks({
   }
 
   const sanitizedText = sanitize ? sanitize(text) : text;
-  const sanitizedSubstring = sanitize ? sanitize(substring) : substring;
+  const sanitizedSubstrings = sanitize
+    ? truthySubstrings.map((substring) => sanitize(substring))
+    : truthySubstrings;
 
-  const matches: RegExpMatchArray[] = [
-    ...sanitizedText.matchAll(
-      new RegExp(
-        escapeRegExp(sanitizedSubstring),
-        getRegExpFlags(caseSensitive)
-      )
-    ),
-  ];
+  const entries = getEntries(
+    sanitizedText,
+    sanitizedSubstrings,
+    getRegExpFlags(caseSensitive)
+  );
 
-  if (matches.length === 0) {
+  if (entries.length === 0) {
     return [
       {
-        text,
+        text: sanitizedText,
         highlighted: false,
       },
     ];
   }
 
-  const entries = matches.reduce((acc, item) => {
-    acc.push({
-      startIndex: item.index || 0,
-      endIndex: (item.index || 0) + substring.length,
-    });
-
-    return acc;
-  }, [] as Entry[]);
+  const concatenatedEntries = concatEntries(entries);
 
   const chunks = [];
 
-  entries.forEach((currentEntry, index) => {
+  concatenatedEntries.forEach((currentEntry, index, entries) => {
     const prevEntry = entries[index - 1] || { startIndex: 0, endIndex: 0 };
 
     if (currentEntry.startIndex - prevEntry.endIndex) {

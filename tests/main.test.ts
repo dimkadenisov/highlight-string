@@ -2,9 +2,9 @@ import { getTextChunks } from '../src/getTextChunks';
 
 const cases = [
   {
-    testCaseName: 'Simple match with one substring and case insensitive',
+    testCaseName: 'Simple match with one substrings and case insensitive',
     text: 'Hello everyone!',
-    substring: 'every',
+    substrings: ['every'],
     expected: [
       {
         text: 'Hello ',
@@ -21,9 +21,9 @@ const cases = [
     ],
   },
   {
-    testCaseName: 'Simple match with one substring and case insensitive',
+    testCaseName: 'Simple match with one substrings and case insensitive',
     text: 'Good luck!',
-    substring: 'Good',
+    substrings: ['Good'],
     expected: [
       {
         text: 'Good',
@@ -36,9 +36,9 @@ const cases = [
     ],
   },
   {
-    testCaseName: 'All string is match, one substring and case insensitive',
+    testCaseName: 'All string is match, one substrings and case insensitive',
     text: 'Good luck!',
-    substring: 'Good luck!',
+    substrings: ['Good luck!'],
     expected: [
       {
         text: 'Good luck!',
@@ -47,9 +47,9 @@ const cases = [
     ],
   },
   {
-    testCaseName: 'No match, one substring, case insensitive',
+    testCaseName: 'No match, one substrings, case insensitive',
     text: 'Good luck!',
-    substring: 'qwerty',
+    substrings: ['qwerty'],
     expected: [
       {
         text: 'Good luck!',
@@ -58,9 +58,9 @@ const cases = [
     ],
   },
   {
-    testCaseName: 'Substring is an empty string',
+    testCaseName: 'Substrings is an empty string',
     text: 'Good luck!',
-    substring: '',
+    substrings: [''],
     expected: [
       {
         text: 'Good luck!',
@@ -71,7 +71,7 @@ const cases = [
   {
     testCaseName: 'Multiple matches with case insensitive',
     text: 'Summer Smith',
-    substring: 's',
+    substrings: ['s'],
     expected: [
       {
         text: 'S',
@@ -94,7 +94,7 @@ const cases = [
   {
     testCaseName: 'Case sensitivity check',
     text: 'Summer Smith',
-    substring: 's',
+    substrings: ['s'],
     caseSensitive: true,
     expected: [
       {
@@ -106,7 +106,7 @@ const cases = [
   {
     testCaseName: 'Case sensitivity check',
     text: 'summer smith',
-    substring: 's',
+    substrings: ['s'],
     caseSensitive: true,
     expected: [
       {
@@ -123,6 +123,102 @@ const cases = [
       },
       {
         text: 'mith',
+        highlighted: false,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['t', 'te', 'tes', 'test'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'test',
+        highlighted: true,
+      },
+      {
+        text: 'ing',
+        highlighted: false,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['t', 'tes', 'test'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'test',
+        highlighted: true,
+      },
+      {
+        text: 'ing',
+        highlighted: false,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['tes', 'ing'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'tes',
+        highlighted: true,
+      },
+      {
+        text: 't',
+        highlighted: false,
+      },
+      {
+        text: 'ing',
+        highlighted: true,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['tes', 'ti', 'ng'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'testing',
+        highlighted: true,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['tes', 'sti'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'testi',
+        highlighted: true,
+      },
+      {
+        text: 'ng',
+        highlighted: false,
+      },
+    ],
+  },
+  {
+    testCaseName: 'Multiple substrings',
+    text: 'testing',
+    substrings: ['tes', '', 'qwe'],
+    caseSensitive: true,
+    expected: [
+      {
+        text: 'tes',
+        highlighted: true,
+      },
+      {
+        text: 'ting',
         highlighted: false,
       },
     ],
