@@ -1,4 +1,4 @@
-import { GetTextChunksProps } from '../types';
+import { HighlightStringType } from '../types';
 import { concatEntries } from './concatEntries';
 import { convertEntriesToChunks } from './convertEntriesToChunks';
 import { getEntries } from './getEntries';
@@ -12,7 +12,7 @@ export function highlightString({
   substrings,
   caseSensitive = false,
   sanitize,
-}: GetTextChunksProps) {
+}: HighlightStringType) {
   const truthySubstrings = substrings.filter(Boolean);
 
   if (!text || truthySubstrings.length === 0) {

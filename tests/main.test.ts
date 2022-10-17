@@ -1,4 +1,4 @@
-import { getTextChunks } from '../src/functions/getTextChunks';
+import { highlightString } from '../src/functions/highlightString';
 
 const cases = [
   {
@@ -229,7 +229,7 @@ describe.each(cases)(
   'main function',
   ({ testCaseName, expected, ...props }) => {
     test(testCaseName, () => {
-      expect(getTextChunks(props)).toStrictEqual(expected);
+      expect(highlightString(props)).toStrictEqual(expected);
     });
   }
 );

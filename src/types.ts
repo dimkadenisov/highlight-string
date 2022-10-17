@@ -3,7 +3,7 @@ export type Entry = {
   endIndex: number;
 };
 
-export type GetTextChunksProps = {
+export type HighlightStringType = {
   text: string;
   substrings: string[];
   caseSensitive?: boolean;
