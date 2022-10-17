@@ -1,1 +1,1 @@
-export { highlightString as default } from './functions/highlightString';
+export { highlightString } from './functions/highlightString';
