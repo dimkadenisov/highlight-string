@@ -7,7 +7,7 @@ import { getRegExpFlags } from './getRegExpFlags';
 /**
  * returns array of chunks that represents highlighted and non highlighted text pieces
  */
-export function getTextChunks({
+export function highlightString({
   text,
   substrings,
   caseSensitive = false,
