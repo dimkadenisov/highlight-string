@@ -226,7 +226,7 @@ const cases = [
 ];
 
 describe.each(cases)(
-  'main function',
+  'highlightString function test',
   ({ testCaseName, expected, ...props }) => {
     test(testCaseName, () => {
       expect(highlightString(props)).toStrictEqual(expected);
