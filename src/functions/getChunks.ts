@@ -1,4 +1,4 @@
-import { HighlightStringType } from '../types';
+import { GetChunksType } from '../types';
 import { concatEntries } from './concatEntries';
 import { convertEntriesToChunks } from './convertEntriesToChunks';
 import { getEntries } from './getEntries';
@@ -7,12 +7,12 @@ import { getRegExpFlags } from './getRegExpFlags';
 /**
  * returns array of chunks that represents highlighted and non highlighted text pieces
  */
-export function highlightString({
+export function getChunks({
   text,
   substrings,
   caseSensitive = false,
   sanitize,
-}: HighlightStringType) {
+}: GetChunksType) {
   const truthySubstrings = substrings.filter(Boolean);
 
   if (!text || truthySubstrings.length === 0) {

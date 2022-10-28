@@ -1,2 +1,2 @@
-export { highlightString } from './functions/highlightString';
-export { HighlightStringType } from './types';
+export { getChunks } from './functions/getChunks';
+export { GetChunksType } from './types';
