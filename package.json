@@ -1,14 +1,22 @@
 {
   "name": "highlight-string",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "helper for text highlighting",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix",
-    "prepare": "husky install"
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test && yarn lint",
+    "preversion": "yarn lint",
+    "version": "yarn fix && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimkadenisov/highlight-string.git"
   },
   "lint-staged": {
     "*.ts": "eslint"
