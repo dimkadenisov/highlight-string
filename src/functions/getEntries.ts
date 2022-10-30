@@ -1,4 +1,3 @@
-import { Entry } from '../types';
 import { escapeRegExp } from './escapeRegExp';
 
 export function getEntries(
@@ -6,20 +5,16 @@ export function getEntries(
   substrings: string[],
   regExpFlags: string
 ) {
-  const arrayOfMatchesArrays = substrings.map((substring) => {
-    return [...text.matchAll(new RegExp(escapeRegExp(substring), regExpFlags))];
-  });
+  const arrayOfMatchesArrays = substrings.reduce((acc, substring) => {
+    acc.push(
+      ...text.matchAll(new RegExp(escapeRegExp(substring), regExpFlags))
+    );
 
-  return arrayOfMatchesArrays.reduce((acc, matchesArray, index) => {
-    const entries = matchesArray.reduce((acc, item) => {
-      acc.push({
-        startIndex: item.index || 0,
-        endIndex: (item.index || 0) + substrings[index].length,
-      });
+    return acc;
+  }, [] as RegExpMatchArray[]);
 
-      return acc;
-    }, [] as Entry[]);
-
-    return [...acc, ...entries];
-  }, [] as Entry[]);
+  return arrayOfMatchesArrays.map((item) => ({
+    startIndex: item.index || 0,
+    endIndex: (item.index || 0) + item[0].length,
+  }));
 }
