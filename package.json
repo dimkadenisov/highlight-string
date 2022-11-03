@@ -1,6 +1,6 @@
 {
   "name": "highlight-string",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "helper for text highlighting",
   "main": "dist/index.js",
   "scripts": {
