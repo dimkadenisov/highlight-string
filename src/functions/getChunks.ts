@@ -1,5 +1,5 @@
 import { GetChunksType } from '../types';
-import { concatEntries } from './concatEntries';
+import { mergeEntries } from './mergeEntries';
 import { convertEntriesToChunks } from './convertEntriesToChunks';
 import { getEntries } from './getEntries';
 import { getRegExpFlags } from './getRegExpFlags';
@@ -44,7 +44,7 @@ export function getChunks({
     ];
   }
 
-  const concatenatedEntries = concatEntries(entries);
+  const concatenatedEntries = mergeEntries(entries);
   const chunks = convertEntriesToChunks(concatenatedEntries, sanitizedText);
 
   return chunks;
