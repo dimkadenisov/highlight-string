@@ -1,0 +1,11 @@
+.github/
+.husky/
+node_modules/
+src/
+tests/
+.eslintignore
+.eslintrc
+.prettierignore
+.prettierrc
+jest.config.js
+tsconfig.json
