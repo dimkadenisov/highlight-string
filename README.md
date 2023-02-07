@@ -1,8 +1,8 @@
-Tiny util to highlight given string in text.
+Tiny util to highlight given string in text. Written in **TypeScript**. Better alternative for [highlight-words-core](https://github.com/bvaughn/react-highlight-words).
 
 ## API
 
-This package contains only one function exported as `getChunks`. This method searches a string of text for a set of search terms and returns an array of chunks that describe the matches found. Better to see an example:
+This package contains only one function exported as `getChunks`. This method searches for a given string in text and returns an array of chunks that describes the matches found. For example:
 
 ```js
 import { getChunks } from 'highlight-string';
