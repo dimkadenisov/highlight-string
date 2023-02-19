@@ -8,11 +8,9 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix",
-    "prepare": "yarn build",
-    "prepublishOnly": "yarn test && yarn lint",
-    "preversion": "yarn lint",
-    "version": "yarn fix && git add -A src",
-    "postversion": "git push && git push --tags"
+    "semantic-release": "semantic-release",
+    "prepare": "husky install",
+    "prepublishOnly": "yarn test && yarn lint && rm -rf dist && yarn build"
   },
   "repository": {
     "type": "git",
