@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: yarn
-      - run: yarn --frozen-lockfile
+      - run: yarn
       - run: yarn lint
       - run: yarn test
       - run: yarn build
