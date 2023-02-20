@@ -22,7 +22,7 @@ jobs:
           node-version: 'lts/*'
           cache: yarn
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
