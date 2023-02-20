@@ -9,3 +9,4 @@ tests/
 .prettierrc
 jest.config.js
 tsconfig.json
+.releaserc
