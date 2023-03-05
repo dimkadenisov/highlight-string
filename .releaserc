@@ -16,7 +16,25 @@
             "BREAKING-CHANGE",
             "BREAKING-CHANGES"
           ]
-        }
+        },
+        "releaseRules": [
+          {
+            "release": "patch",
+            "type": "ci"
+          },
+          {
+            "release": "patch",
+            "type": "docs"
+          },
+          {
+            "release": "patch",
+            "type": "refactor"
+          },
+          {
+            "release": "patch",
+            "type": "style"
+          }
+        ]
       }
     ],
     [
