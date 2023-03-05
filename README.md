@@ -1,4 +1,4 @@
-Tiny util to highlight given string in text. Written in **TypeScript**. Better alternative for [highlight-words-core](https://github.com/bvaughn/react-highlight-words).
+Tiny util to highlight given string in text. Written in **TypeScript**. Better alternative for [highlight-words-core](https://github.com/bvaughn/highlight-words-core).
 
 ## API
 
