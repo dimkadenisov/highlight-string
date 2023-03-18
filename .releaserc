@@ -6,18 +6,11 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "parserOpts": {
-          "noteKeywords": [
-            "BREAKING CHANGE",
-            "BREAKING CHANGES",
-            "BREAKING",
-            "BREAKING_CHANGE",
-            "BREAKING_CHANGES",
-            "BREAKING-CHANGE",
-            "BREAKING-CHANGES"
-          ]
-        },
         "releaseRules": [
+          {
+            "release": "major",
+            "type": "breaking"
+          },
           {
             "release": "patch",
             "type": "ci"
@@ -40,17 +33,6 @@
     [
       "@semantic-release/release-notes-generator",
       {
-        "parserOpts": {
-          "noteKeywords": [
-            "BREAKING CHANGE",
-            "BREAKING CHANGES",
-            "BREAKING",
-            "BREAKING_CHANGE",
-            "BREAKING_CHANGES",
-            "BREAKING-CHANGE",
-            "BREAKING-CHANGES"
-          ]
-        },
         "writerOpts": {
           "commitsSort": [
             "subject",
